@@ -1,0 +1,6 @@
+.cardImage{
+    width: 100px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
