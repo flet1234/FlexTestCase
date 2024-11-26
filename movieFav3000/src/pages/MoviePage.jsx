@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addFavorite } from "../redux/actions/actionCreators";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { getFilmDetails } from "../services/movieService";
@@ -42,11 +42,14 @@ function MoviePage() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
+
+      // Navigate back
       if (e.key === "Escape") {
         e.preventDefault();
         navigate("/");
       }
 
+      // Add to favorites
       if (e.key === "Enter") {
         e.preventDefault();
         handleLike(e);

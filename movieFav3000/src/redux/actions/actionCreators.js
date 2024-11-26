@@ -9,6 +9,7 @@ import {
 } from "./actionTypes";
 
 export const fetchDataRequest = (filter, pageNum) => {
+  // Different types of requests and then saga based on the filter value
   if (filter === "popular") return { type: FETCH_DATA_REQUEST, payload: { pageNum:pageNum} };
   if (filter === "now_playing") return { type: FETCH_NOW_PLAYING_REQUEST, payload: { pageNum: pageNum } };
   if (filter === "favorites") return { type: FETCH_FAVORITES_REQUEST };

@@ -8,6 +8,7 @@ function MovieFilter({ filter, setFilter }) {
     const selectedFilter = event.target.value;
     if (selectedFilter !== filter) {
       setFilter(selectedFilter);
+      // Reset the page number to 1
       navigate("/1");
     }
   };

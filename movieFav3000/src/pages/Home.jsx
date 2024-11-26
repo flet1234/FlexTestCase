@@ -18,11 +18,13 @@ function Home() {
   const { pageNum } = useParams();
 
   useEffect(() => {
+    // Validate the page number
     const validPageNum = !isNaN(pageNum) && pageNum > 0 && pageNum < 501;
     if (!validPageNum || (filter === "now_playing" && pageNum > 311)) {
       navigate("/not-found");
       return;
     }
+    // Fetch data
     dispatch(fetchDataRequest(filter, pageNum));
   }, [pageNum, filter, error, dispatch]);
 
@@ -47,6 +49,7 @@ function Home() {
         setSelectedMovie(0);
       }
 
+      // Filter navigation
       if (e.key === "PageDown") {
         e.preventDefault();
         if (filter === "popular") setFilter("now_playing");
@@ -60,12 +63,14 @@ function Home() {
       }
     };
 
+    // Add event listener
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [filter, movies.length, selectedMovie]);
 
+  // Handle pagination
   const handlePageChange = (operation) => {
     if (operation === "next") {
       navigate(`/${parseInt(pageNum) + 1}`);

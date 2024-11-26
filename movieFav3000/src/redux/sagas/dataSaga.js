@@ -3,6 +3,7 @@ import { fetchDataFailure, fetchDataSuccess } from "../actions/actionCreators";
 import { FETCH_DATA_REQUEST, FETCH_NOW_PLAYING_REQUEST, FETCH_FAVORITES_REQUEST } from "../actions/actionTypes";
 import { getFavorites, getNowPlayingMovies, getPopularMovies } from "../../services/movieService";
 
+// saga for popular movies
 function* fetchDataSaga(action) {
   try {
     const { pageNum } = action.payload;
@@ -12,6 +13,7 @@ function* fetchDataSaga(action) {
     yield put(fetchDataFailure(error.message || "An error occurred"));
   }
 }
+// saga for now playing movies
 function* fetchNowPlayingSaga(action) {
   try {
     const { pageNum } = action.payload;
@@ -25,6 +27,7 @@ function* fetchNowPlayingSaga(action) {
 // Selector for favorites, to pass all id's to getFavorites function
 const selectFavorites = (state) => state.data.favorites;
 
+// saga for favorites
 function* fetchFavoritesSaga() {
   try {
     const favorites = yield select(selectFavorites);

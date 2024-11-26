@@ -13,7 +13,8 @@ const App = () => {
           <Route path="/" element={<Navigate to={"/1"} replace />} />
           <Route path="/:pageNum" element={<Home />} />
           <Route path="/movie/:id" element={<MoviePage />} />
-          <Route path="/not-found" element={<NotFound />} /> {/* Catch-all route */}
+          <Route path="/not-found" element={<NotFound />} />  {/* 404 route */}
+          <Route path="/*" element={<NotFound />} /> {/* Catch-all route */}
         </Routes>
       </main>
       <Footer />

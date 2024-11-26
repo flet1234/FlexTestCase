@@ -6,8 +6,10 @@ import "../css/likeButton.css";
 function LikeButton({ movieId }) {
   const dispatch = useDispatch();
   
+  // Get favorites from localStorage
   const userFavorites = JSON.parse(localStorage.getItem("favorites"));
-  
+
+  // Get favorites from the store
   const favorites = useSelector((state) => state.data.favorites);
 
   useEffect(() => {
@@ -19,6 +21,8 @@ function LikeButton({ movieId }) {
 
   const handleLike = (e) => {
     e.preventDefault();
+
+    // Add or remove favorite from store and localStorage
     dispatch(addFavorite(movieId));
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     if (favorites.includes(movieId)) {
