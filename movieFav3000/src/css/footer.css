@@ -1,0 +1,21 @@
+.footerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(13, 37, 63);
+  height: 100px;
+  width: 100%;
+  color: white;
+  gap: 1rem;
+}
+
+
+.footerTMDBImage {
+  width: 50%;
+}
+
+.footerContainer h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1rem;
+}

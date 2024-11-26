@@ -2,9 +2,9 @@ import { FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, ADD_FAVORITE, FILL_FAVORITES } 
 
 const initialState = {
   movies: [],
-  favorites:[],
-    loading: true,
-    error: null,
+  favorites: [],
+  loading: true,
+  error: null
 };
 
 const dataReducer = (state = initialState, action) => {
@@ -24,12 +24,12 @@ const dataReducer = (state = initialState, action) => {
         error: action.payload
       };
     case ADD_FAVORITE:
-     return {
-       ...state,
-       favorites: state.favorites.includes(action.payload)
-         ? state.favorites.filter((movieId) => movieId !== action.payload) // Remove if already a favorite
-         : [...state.favorites, action.payload] // Add if not a favorite
-     };
+      return {
+        ...state,
+        favorites: state.favorites.includes(action.payload)
+          ? state.favorites.filter((movieId) => movieId !== action.payload) // Remove if already a favorite
+          : [...state.favorites, action.payload] // Add if not a favorite
+      };
     case FILL_FAVORITES:
       return {
         ...state,

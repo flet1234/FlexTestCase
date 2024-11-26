@@ -1,0 +1,10 @@
+.movieFilterContainer{
+    display: flex;
+    margin-top: 20px;
+}
+
+.movieFilter{
+    font-size: 18px;
+    border: none;
+    font-weight: 600;
+}

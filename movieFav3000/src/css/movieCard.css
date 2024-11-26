@@ -1,6 +1,47 @@
+.cardContainer{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.50rem;
+    border: 3px solid #ffffff00;
+    box-shadow: 5px 5px 5px rgba(3, 3, 3, 0.1);
+    border-radius: 12px;
+}
+
 .cardImage{
-    width: 100px;
+    max-width: 250px;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
+}
+
+.cardContainer h2{
+    font-size: 1rem;
+    max-width: 240px;
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+}
+
+.cardContainer p{
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 0.50rem;
+}
+
+.movieCardLink{
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.cardContainer:hover{
+    border: 3px solid rgba(1, 180, 228);
+}
+
+.selected{
+    border: 3px solid rgba(144, 206, 161);
 }

@@ -1,15 +1,21 @@
-import "../css/movieCard.css"
+import "../css/movieCard.css";
+import { dateFormatter } from "../utilities/utils";
 import LikeButton from "./LikeButton";
+import { Link } from "react-router-dom";
 
-function MovieCard({ movie }) {
-  const baseURL = import.meta.env.VITE_BASE_URL;
-
+function MovieCard({ movie, isSelected }) {
   return (
-    <div className="cardContainer">
+    <div className={`cardContainer ${isSelected ? "selected" : ""}`}>
       <LikeButton movieId={movie.id} />
-      <img className="cardImage" src={`${baseURL}w500${movie.poster_path}`} alt={`${movie.original_title} poster picture`} />
-      <h2>{movie.original_title}</h2>
-      <p>{movie.release_date}</p>
+      <Link to={`/movie/${movie.id}`} className="movieCardLink">
+        <img
+          className="cardImage"
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          alt={`${movie.title} poster picture`}
+        />
+        <h2>{movie.title}</h2>
+      </Link>
+      <p>{dateFormatter(movie.release_date)}</p>
     </div>
   );
 }
