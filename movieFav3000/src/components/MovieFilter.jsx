@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import "../css/movieFilter.css";
 
 function MovieFilter({ filter, setFilter }) {
+  const navigate = useNavigate();
+  
   const handleSelect = (event) => {
-    setFilter(event.target.value);
+    const selectedFilter = event.target.value;
+    if (selectedFilter !== filter) {
+      setFilter(selectedFilter);
+      navigate("/1");
+    }
   };
 
   return (

@@ -16,8 +16,6 @@ function MoviePage() {
 
   const dispatch = useDispatch();
 
-  const favorites = useSelector((state) => state.data.favorites);
-
   useEffect(() => {
     const movieData = async (id) => {
       try {
@@ -41,7 +39,7 @@ function MoviePage() {
       localStorage.setItem("favorites", JSON.stringify([...favorites, movie.id]));
     }
   };
-  
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {

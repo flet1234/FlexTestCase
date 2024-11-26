@@ -1,8 +1,8 @@
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
-export const getPopularMovies = async () => {
-    const url = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+export const getPopularMovies = async (pageNum) => {
+    const url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${pageNum}`;
     const options = {
         method: 'GET',
         headers: {
@@ -24,8 +24,8 @@ export const getPopularMovies = async () => {
     }
 }
 
-export const getNowPlayingMovies = async () => {
-  const url = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+export const getNowPlayingMovies = async (pageNum) => {
+  const url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${pageNum}`;
   const options = {
     method: "GET",
     headers: {
@@ -73,7 +73,6 @@ export const getFilmDetails = async (movieId) => {
 export const getFavorites = async (arrayOfFavoriteMovieIds) => {
     
     const result = await Promise.all(arrayOfFavoriteMovieIds.map(getFilmDetails))
-    
     return result;
     
 };

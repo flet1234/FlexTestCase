@@ -1,18 +1,21 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import MoviePage from "./pages/MoviePage";
 import Home from "./pages/Home";
-import "./css/app.css"
+import "./css/app.css";
 import Footer from "./components/Footer";
+import NotFound from "./components/NotFound";
 
 const App = () => {
   return (
     <>
-    <main>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movie/:id" element={<MoviePage/>} />
-      </Routes>
-    </main>
+      <main>
+        <Routes>
+          <Route path="/" element={<Navigate to={"/1"} replace />} />
+          <Route path="/:pageNum" element={<Home />} />
+          <Route path="/movie/:id" element={<MoviePage />} />
+          <Route path="/not-found" element={<NotFound />} /> {/* Catch-all route */}
+        </Routes>
+      </main>
       <Footer />
     </>
   );

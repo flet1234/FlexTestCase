@@ -1,0 +1,29 @@
+.notFoundContainer {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.notFoundContainer h1 {
+  font-size: 3rem;
+  color: rgb(13, 37, 63)
+}
+
+.notFoundContainer p {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.notFoundContainer button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: rgb(1, 180, 228);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.notFoundContainer button:hover {
+  background-color: rgb(13, 37, 63)
+}

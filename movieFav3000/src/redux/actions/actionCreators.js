@@ -8,9 +8,9 @@ import {
   FILL_FAVORITES
 } from "./actionTypes";
 
-export const fetchDataRequest = (filter) => {
-  if (filter === "popular") return { type: FETCH_DATA_REQUEST };
-  if (filter === "now_playing") return { type: FETCH_NOW_PLAYING_REQUEST };
+export const fetchDataRequest = (filter, pageNum) => {
+  if (filter === "popular") return { type: FETCH_DATA_REQUEST, payload: { pageNum:pageNum} };
+  if (filter === "now_playing") return { type: FETCH_NOW_PLAYING_REQUEST, payload: { pageNum: pageNum } };
   if (filter === "favorites") return { type: FETCH_FAVORITES_REQUEST };
 };
 

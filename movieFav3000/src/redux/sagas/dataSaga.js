@@ -3,17 +3,19 @@ import { fetchDataFailure, fetchDataSuccess } from "../actions/actionCreators";
 import { FETCH_DATA_REQUEST, FETCH_NOW_PLAYING_REQUEST, FETCH_FAVORITES_REQUEST } from "../actions/actionTypes";
 import { getFavorites, getNowPlayingMovies, getPopularMovies } from "../../services/movieService";
 
-function* fetchDataSaga() {
+function* fetchDataSaga(action) {
   try {
-    const data = yield call(getPopularMovies);
+    const { pageNum } = action.payload;
+    const data = yield call(getPopularMovies, pageNum);
     yield put(fetchDataSuccess(data));
   } catch (error) {
     yield put(fetchDataFailure(error.message || "An error occurred"));
   }
 }
-function* fetchNowPlayingSaga() {
+function* fetchNowPlayingSaga(action) {
   try {
-    const data = yield call(getNowPlayingMovies);
+    const { pageNum } = action.payload;
+    const data = yield call(getNowPlayingMovies, pageNum);
     yield put(fetchDataSuccess(data));
   } catch (error) {
     yield put(fetchDataFailure(error.message || "An error occurred"));
