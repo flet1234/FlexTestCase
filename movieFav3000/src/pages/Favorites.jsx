@@ -62,7 +62,7 @@ function Favorites() {
         </div>
       )}
       {favorites.length === 0 && (
-        <div>
+        <div className="movieCardContainer">
           <h3>Start adding your favorites!</h3>
         </div>
       )}
