@@ -1,8 +1,10 @@
-import { FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, ADD_FAVORITE, FILL_FAVORITES } from "../actions/actionTypes";
+import { FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, FILL_FAVORITES, ADD_FAVORITE_TO_STORE } from "../actions/actionTypes";
+
+const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 const initialState = {
   movies: [],
-  favorites: [],
+  favorites: favorites,
   loading: true,
   error: null
 };
@@ -14,7 +16,7 @@ const dataReducer = (state = initialState, action) => {
         ...state,
         movies: action.payload,
         loading: false,
-        error: null
+        error: null,
       };
     case FETCH_DATA_FAILURE:
       return {
@@ -23,7 +25,7 @@ const dataReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload
       };
-    case ADD_FAVORITE:
+    case ADD_FAVORITE_TO_STORE:
       return {
         ...state,
         favorites: state.favorites.includes(action.payload)

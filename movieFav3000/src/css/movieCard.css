@@ -38,10 +38,10 @@
     text-decoration: none;
 }
 
-.cardContainer:hover{
-    border: 3px solid rgba(1, 180, 228);
+.selected{
+    border: 3px solid rgba(144, 206, 161) !important; 
 }
 
-.selected{
-    border: 3px solid rgba(144, 206, 161);
+.cardContainer:hover{
+    border: 3px solid rgba(1, 180, 228);
 }

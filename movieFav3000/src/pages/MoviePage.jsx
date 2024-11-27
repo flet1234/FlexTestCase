@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addFavorite } from "../redux/actions/actionCreators";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavoriteToStoreAndLocalStorage } from "../redux/actions/actionCreators";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { getFilmDetails } from "../services/movieService";
 import LikeButton from "../components/LikeButton";
@@ -12,6 +12,10 @@ function MoviePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams();
+  // Convert id to number to match the type in the favorites array
+  const idNum = parseInt(id);
+  const favorites = useSelector((state) => state.data.favorites);
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -31,27 +35,19 @@ function MoviePage() {
   }, [id]);
 
   const handleLike = () => {
-    dispatch(addFavorite(movie.id));
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    if (favorites.includes(movie.id)) {
-      localStorage.setItem("favorites", JSON.stringify(favorites.filter((id) => id !== movie.id)));
-    } else {
-      localStorage.setItem("favorites", JSON.stringify([...favorites, movie.id]));
-    }
+    dispatch(addFavoriteToStoreAndLocalStorage(idNum));
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-
       // Navigate back
       if (e.key === "Escape") {
         e.preventDefault();
-        navigate("/");
+        navigate(-1);
       }
 
       // Add to favorites
       if (e.key === "Enter") {
-        e.preventDefault();
         handleLike(e);
       }
     };
@@ -60,8 +56,7 @@ function MoviePage() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [navigate,handleLike]);
-
+  }, [navigate, handleLike]);
 
   return (
     <>
@@ -87,7 +82,7 @@ function MoviePage() {
               <Link to="/">
                 <button>Back</button>
               </Link>
-              <button onClick={handleLike}>Add to favorites</button>
+              <button onClick={handleLike}>{favorites.includes(idNum) ? "Remove from favorites" : "Add to favorites"}</button>
             </div>
           </article>
         </section>

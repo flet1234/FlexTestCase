@@ -1,36 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { addFavorite, fillFavorites } from "../redux/actions/actionCreators";
+import { addFavoriteToStoreAndLocalStorage } from "../redux/actions/actionCreators";
 import "../css/likeButton.css";
 
 function LikeButton({ movieId }) {
   const dispatch = useDispatch();
-  
-  // Get favorites from localStorage
-  const userFavorites = JSON.parse(localStorage.getItem("favorites"));
 
   // Get favorites from the store
-  const favorites = useSelector((state) => state.data.favorites);
-
-  useEffect(() => {
-    // Fill favorites from localStorage
-    if (userFavorites) {
-      dispatch(fillFavorites(userFavorites));
-    }
-  }, []);
+  const favorites = useSelector((state) => state.data.favorites); 
 
   const handleLike = (e) => {
     e.preventDefault();
-
     // Add or remove favorite from store and localStorage
-    dispatch(addFavorite(movieId));
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    if (favorites.includes(movieId)) {
-      localStorage.setItem("favorites", JSON.stringify(favorites.filter((id) => id !== movieId)));
-      return;
-    } else {
-      localStorage.setItem("favorites", JSON.stringify([...favorites, movieId]));
-    }
+    dispatch(addFavoriteToStoreAndLocalStorage(movieId));
   };
 
   return (

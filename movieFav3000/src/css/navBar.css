@@ -1,0 +1,34 @@
+.navBarContainer{
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background: rgb(13, 37, 63);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.passiveLink{
+ color: rgb(1, 180, 228);
+ text-decoration: none;
+}
+
+.activeLink{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    pointer-events: none;
+}
+
+.passiveLink:hover{
+    color: rgb(144, 206, 161);
+    /* text-decoration: none; */
+}
+
+@media screen and (max-width: 350px){
+    .navBarContainer{
+        flex-direction: column;
+        height: 100px;
+    }
+    
+}
