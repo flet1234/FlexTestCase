@@ -6,20 +6,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import "../css/home.css";
 
 function Popular() {
-
   const [selectedMovie, setSelectedMovie] = useState(0); // Tracks the selected movie
 
   const dispatch = useDispatch();
   const { movies, error, loading } = useSelector((state) => state.data);
-  
+
   const navigate = useNavigate();
 
   const { pageNum } = useParams();
 
-  const page = parseInt(pageNum);
+  const page = parseInt(pageNum, 10);
 
   useEffect(() => {
-    // Validate the page number
+    // Validate the page number, api for popular gives max 500 pages
     const validPage = !isNaN(page) && page > 0 && page < 501;
     if (!validPage) {
       navigate("/not-found");
@@ -27,17 +26,19 @@ function Popular() {
     }
     // Fetch data
     dispatch(fetchDataRequest("popular", page));
-  }, [page, error, dispatch]);
+  }, [page, dispatch]);
 
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "ArrowRight") {
         e.preventDefault();
+        document.activeElement?.blur(); // Remove usual(tab) focus
         // Navigate to the next movie
         setSelectedMovie((prev) => (prev + 1) % movies.length);
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
+        document.activeElement?.blur();
         // Navigate to the previous movie
         setSelectedMovie((prev) => (prev - 1 + movies.length) % movies.length);
       }
@@ -80,7 +81,7 @@ function Popular() {
       }
     }
     if (operation === "previous") {
-      if (page > 1) navigate(`/popular/${page - 1}`)
+      if (page > 1) navigate(`/popular/${page - 1}`);
       // Not sure if scrollTo is needed here
     }
   };
@@ -93,6 +94,7 @@ function Popular() {
         {movies.map((movie, index) => (
           <MovieCard key={movie.id} movie={movie} isSelected={selectedMovie === index} />
         ))}
+        {movies.length === 0 && !loading && <h2>Sorry no more movies in this section</h2>}
       </div>
       <div className="homePagBTNContainer">
         {page > 1 && <button onClick={() => handlePageChange("previous")}>Previous</button>}

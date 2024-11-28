@@ -62,22 +62,24 @@ function MoviePage() {
     <>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {movie.title && (
+      {movie.id > 0 && (
         <section className="moviePageContainer">
           <aside className="moviePageImgContainer">
             <img src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} alt={`${movie.original_title} poster`} />
             <LikeButton movieId={movie.id} />
           </aside>
           <article className="moviePageArticle">
-            <h2>{movie.title}</h2>
-            <h3>{movie.tagline}</h3>
-            <p>{movie.overview}</p>
-            <p>Genre: {movie.genres.map((genre) => genre.name).join(", ")}.</p>
-            <p>Release date: {dateFormatter(movie.release_date)}</p>
-            <p>Rating: {movie.vote_average}</p>
-            <p>Production companies: {movie.production_companies.map((company) => company.name).join(", ")}</p>
-            <p>Budget: {movie.budget}$</p>
-            <p>Revenue: {movie.revenue}$</p>
+            {movie.title && <h2>{movie.title}</h2>}
+            {movie.tagline && <h3>{movie.tagline}</h3>}
+            {movie.overview && <p>{movie.overview}</p>}
+            {movie.genres && movie.genres.length > 0 && <p>Genre: {movie.genres.map((genre) => genre.name).join(", ")}.</p>}
+            {movie.release_date && <p>Release date: {dateFormatter(movie.release_date)}</p>}
+            {movie.vote_average && <p>Rating: {movie.vote_average}</p>}
+            {movie.production_companies && movie.production_companies.length > 0 && (
+              <p>Production companies: {movie.production_companies.map((company) => company.name).join(", ")}</p>
+            )}
+            {movie.budget && <p>Budget: {movie.budget}$</p>}
+            {movie.revenue && <p>Revenue: {movie.revenue}$</p>}
             <div className="moviePageButtons">
               <Link to="/">
                 <button>Back</button>

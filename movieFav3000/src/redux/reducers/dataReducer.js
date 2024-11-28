@@ -6,7 +6,8 @@ const initialState = {
   movies: [],
   favorites: favorites,
   loading: true,
-  error: null
+  error: null,
+  maxPage: 500, // Maximum number of pages for popular movies
 };
 
 const dataReducer = (state = initialState, action) => {
@@ -14,9 +15,10 @@ const dataReducer = (state = initialState, action) => {
     case FETCH_DATA_SUCCESS:
       return {
         ...state,
-        movies: action.payload,
+        movies: action.payload.results,
         loading: false,
         error: null,
+        maxPage: action.payload.total_pages
       };
     case FETCH_DATA_FAILURE:
       return {

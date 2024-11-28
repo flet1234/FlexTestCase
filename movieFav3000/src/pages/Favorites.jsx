@@ -12,13 +12,12 @@ function Favorites() {
   const dispatch = useDispatch();
 
   const { movies, error, loading, favorites } = useSelector((state) => state.data);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch data
     dispatch(fetchDataRequest("favorites"));
-    
   }, [dispatch]);
 
   // Handle keyboard navigation
@@ -26,10 +25,12 @@ function Favorites() {
     const handleKeyDown = (e) => {
       if (e.key === "ArrowRight") {
         e.preventDefault();
+        document.activeElement?.blur();
         // Navigate to the next movie
         setSelectedMovie((prev) => (prev + 1) % movies.length);
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
+        document.activeElement?.blur();
         // Navigate to the previous movie
         setSelectedMovie((prev) => (prev - 1 + movies.length) % movies.length);
       }
@@ -41,7 +42,7 @@ function Favorites() {
       if (e.key === "Escape") {
         setSelectedMovie(0);
       }
-    }
+    };
     // Add event listener
     window.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -59,6 +60,7 @@ function Favorites() {
             (movie, index) =>
               favorites.includes(movie.id) && <MovieCard key={movie.id} movie={movie} isSelected={selectedMovie === index} />
           )}
+          {movies.length === 0 && !loading && <h2>Sorry something went wrong, try again</h2>}
         </div>
       )}
       {favorites.length === 0 && (

@@ -9,7 +9,7 @@ function NowPlaying() {
   const [selectedMovie, setSelectedMovie] = useState(0); // Tracks the selected movie
 
   const dispatch = useDispatch();
-  const { movies, error, loading } = useSelector((state) => state.data);
+  const { movies, error, loading, maxPage } = useSelector((state) => state.data);
 
   const navigate = useNavigate();
 
@@ -19,24 +19,34 @@ function NowPlaying() {
 
   useEffect(() => {
     // Validate the page number
-    const validPage = !isNaN(page) && page > 0 && page < 501;
+    const validPage = !isNaN(page) && page > 0;
     if (!validPage) {
       navigate("/not-found");
       return;
     }
     // Fetch data
     dispatch(fetchDataRequest("now_playing", page));
-  }, [page, error, dispatch]);
+  }, [page, dispatch]);
+
+  // Redirect to the last page if the page number is greater than the max page
+  useEffect(() => {
+    if (page > maxPage) {
+      navigate(`/now-playing/${maxPage}`);
+      return;
+    }
+  }, [page, maxPage, navigate]);
 
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "ArrowRight") {
         e.preventDefault();
+        document.activeElement?.blur();
         // Navigate to the next movie
         setSelectedMovie((prev) => (prev + 1) % movies.length);
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
+        document.activeElement?.blur();
         // Navigate to the previous movie
         setSelectedMovie((prev) => (prev - 1 + movies.length) % movies.length);
       }
@@ -70,7 +80,7 @@ function NowPlaying() {
   // Handle pagination
   const handlePageChange = (operation) => {
     if (operation === "next") {
-      if (page < 500) {
+      if (page < maxPage) {
         navigate(`/now-playing/${page + 1}`);
         window.scrollTo({
           top: 0,
@@ -89,14 +99,12 @@ function NowPlaying() {
       <div className="movieCardContainer">
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        {movies.length > 0 && movies.map((movie, index) => (
-          <MovieCard key={movie.id} movie={movie} isSelected={selectedMovie === index} />
-        ))}
+        {movies.length > 0 && movies.map((movie, index) => <MovieCard key={movie.id} movie={movie} isSelected={selectedMovie === index} />)}
         {movies.length === 0 && !loading && <h2>Sorry no more movies in this section</h2>}
       </div>
       <div className="homePagBTNContainer">
         {page > 1 && <button onClick={() => handlePageChange("previous")}>Previous</button>}
-        {page < 500 && <button onClick={() => handlePageChange("next")}>Next</button>}
+        {page < maxPage && <button onClick={() => handlePageChange("next")}>Next</button>}
       </div>
     </>
   );
