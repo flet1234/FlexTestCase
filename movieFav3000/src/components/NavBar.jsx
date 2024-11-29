@@ -1,26 +1,25 @@
-import { Link, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
+import NavBarLink from "./NavBarLink";
 import "../css/navBar.css"
+import { memo } from "react";
 
 const links = [{ name: "Popular", path: "/popular/1" }, { name: "Now in theatres", path: "/now-playing/1" }, { name: "Your favorites", path: "/favorites" }];
 
-const NavBar = () => {
+const NavBar = memo(() => {
 
     const location = useLocation(); 
 
     return (
       <nav className="navBarContainer">
         {links.map((link) => (
-          <Link
+          <NavBarLink
             key={link.name}
-            to={link.path}
-            className={`${location.pathname.startsWith((link.path).slice(0,-1)) ? "activeLink" : "passiveLink"}`}
-            aria-current={location.pathname === link.path ? "page" : undefined}
-          >
-            {link.name}
-          </Link>
+            link={link}
+            isActive={location.pathname.startsWith(link.path.slice(0, -1))}
+          />
         ))}
       </nav>
     );
-}
+})
 
 export default NavBar

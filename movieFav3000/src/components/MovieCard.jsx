@@ -2,9 +2,9 @@ import "../css/movieCard.css";
 import { dateFormatter } from "../utilities/utils";
 import LikeButton from "./LikeButton";
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 
-function MovieCard({ movie, isSelected }) {
+const MovieCard = memo(({ movie, isSelected, isFavorite }) => {
   if (!movie) return null;
   if (movie.id === undefined) return null;
   if (movie.title === undefined) return null;
@@ -24,7 +24,7 @@ function MovieCard({ movie, isSelected }) {
 
   return (
     <div  ref={isSelected ? selectedElement : null}  className={`cardContainer ${isSelected ? "selected" : ""}`}>
-      <LikeButton movieId={movie.id} />
+      <LikeButton movieId={movie.id} isFavorite={isFavorite} />
       <Link to={`/movie/${movie.id}`} className="movieCardLink">
         <img
           className="cardImage"
@@ -36,6 +36,6 @@ function MovieCard({ movie, isSelected }) {
       {movie.release_date && <p>{dateFormatter(movie.release_date)}</p>}
     </div>
   );
-}
+});
 
 export default MovieCard;

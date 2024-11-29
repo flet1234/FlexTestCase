@@ -48,27 +48,28 @@ function Favorites() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [movies.length, selectedMovie]);
+  }, [movies, selectedMovie]);
+
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>{error}</p>
+  
+  const favoriteMovies = movies.filter((movie) => favorites.includes(movie.id));
 
   return (
-    <>
-      {movies.length > 0 && (
-        <div className="movieCardContainer">
-          {loading && <p>Loading...</p>}
-          {error && <p>{error}</p>}
-          {movies.map(
-            (movie, index) =>
-              favorites.includes(movie.id) && <MovieCard key={movie.id} movie={movie} isSelected={selectedMovie === index} />
-          )}
-          {movies.length === 0 && !loading && <h2>Sorry something went wrong, try again</h2>}
-        </div>
+    <div className="movieCardContainer">
+      {favoriteMovies.length > 0 ? (
+        favoriteMovies.map((movie, index) => (
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            isSelected={selectedMovie === index}
+            isFavorite={true}
+          />
+        ))
+      ) : (
+        <h3>Start adding your favorites!</h3>
       )}
-      {favorites.length === 0 && (
-        <div className="movieCardContainer">
-          <h3>Start adding your favorites!</h3>
-        </div>
-      )}
-    </>
+    </div>
   );
 }
 

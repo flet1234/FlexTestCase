@@ -1,5 +1,5 @@
 import MovieCard from "../components/MovieCard";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDataRequest } from "../redux/actions/actionCreators";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ function Popular() {
   const [selectedMovie, setSelectedMovie] = useState(0); // Tracks the selected movie
 
   const dispatch = useDispatch();
-  const { movies, error, loading } = useSelector((state) => state.data);
+  const { movies, error, loading, favorites } = useSelector((state) => state.data);
 
   const navigate = useNavigate();
 
@@ -70,31 +70,41 @@ function Popular() {
   }, [movies.length, selectedMovie, page, navigate]);
 
   // Handle pagination
-  const handlePageChange = (operation) => {
-    if (operation === "next") {
-      if (page < 500) {
-        navigate(`/popular/${page + 1}`);
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
+  const handlePageChange = useCallback(
+    (operation) => {
+      if (operation === "next") {
+        if (page < 500) {
+          navigate(`/popular/${page + 1}`);
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        }
       }
-    }
-    if (operation === "previous") {
-      if (page > 1) navigate(`/popular/${page - 1}`);
-      // Not sure if scrollTo is needed here
-    }
-  };
+      if (operation === "previous") {
+        if (page > 1) navigate(`/popular/${page - 1}`);
+        // Not sure if scrollTo is needed here
+      }
+    },
+    [page, navigate]
+  );
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <>
       <div className="movieCardContainer">
-        {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {movies.map((movie, index) => (
-          <MovieCard key={movie.id} movie={movie} isSelected={selectedMovie === index} />
-        ))}
-        {movies.length === 0 && !loading && <h2>Sorry no more movies in this section</h2>}
+        {movies.length > 0
+          ? movies.map((movie, index) => (
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                isSelected={selectedMovie === index}
+                isFavorite={favorites.includes(movie.id) ? true : false}
+              />
+            ))
+          : movies.length === 0 && !loading && <h2>Sorry no more movies in this section</h2>}
       </div>
       <div className="homePagBTNContainer">
         {page > 1 && <button onClick={() => handlePageChange("previous")}>Previous</button>}

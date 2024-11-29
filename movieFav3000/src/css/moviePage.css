@@ -1,8 +1,9 @@
 .moviePageContainer{
+max-width: 1000px;
 display: flex;
 justify-content: center;
 align-items: center;
-margin: 1rem;
+margin: 2rem 2rem;
 gap: 1rem;
 }
 
@@ -22,11 +23,18 @@ gap: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    max-width: 50%;
     justify-content: space-evenly;
 }
 
-.moviePageArticle button{
+.detailsAndButtonsContainer{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: fit-content;
+}
+
+.detailsAndButtonsContainer button{
     padding: 0.50rem;
     border: none;
     border-radius: 5px;
@@ -36,25 +44,24 @@ gap: 1rem;
     font-size: 1rem;
 }
 
-.moviePageArticle button:hover{
+.detailsAndButtonsContainer button:hover{
     background-color: rgb(13, 37, 63);
 }
 
 .moviePageButtons{
     display: flex;
     gap: 1rem;
+    flex-direction: row-reverse;
 }
 
 @media screen and (max-width: 768px){
     .moviePageContainer{
+        max-width: 90%;
         flex-direction: column;
     }
-
     .moviePageImgContainer{
     max-width: 90%;
+    position: relative;
+    display: flex;
 }
-
-    .moviePageArticle{
-        max-width: 100%;
-    }
 }

@@ -1,8 +1,8 @@
-import React from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import "../css/notFound.css";
 
-const NotFound = () => {
+const NotFound = memo(() => {
   return (
     <div className="notFoundContainer">
       <h1>404 - Page Not Found</h1>
@@ -12,6 +12,6 @@ const NotFound = () => {
       </Link>
     </div>
   );
-};
+});
 
 export default NotFound;
