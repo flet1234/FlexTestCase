@@ -1,4 +1,4 @@
-import { FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, FILL_FAVORITES, ADD_FAVORITE_TO_STORE } from "../actions/actionTypes";
+import { FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, FILL_FAVORITES, ADD_FAVORITE_TO_STORE, SET_LOADER } from "../actions/actionTypes";
 
 const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
@@ -12,6 +12,12 @@ const initialState = {
 
 const dataReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_LOADER:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
     case FETCH_DATA_SUCCESS:
       return {
         ...state,

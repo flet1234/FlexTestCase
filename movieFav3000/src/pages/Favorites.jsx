@@ -5,6 +5,7 @@ import { fetchDataRequest } from "../redux/actions/actionCreators";
 import { useNavigate } from "react-router-dom";
 
 import "../css/home.css";
+import Loader from "../components/Loader";
 
 function Favorites() {
   const [selectedMovie, setSelectedMovie] = useState(0); // Tracks the selected movie
@@ -50,7 +51,7 @@ function Favorites() {
     };
   }, [movies, selectedMovie]);
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loader />;
   if (error) return <p>{error}</p>
   
   const favoriteMovies = movies.filter((movie) => favorites.includes(movie.id));

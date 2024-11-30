@@ -6,6 +6,7 @@ import { getFilmDetails } from "../services/movieService";
 import LikeButton from "../components/LikeButton";
 import "../css/moviePage.css";
 import MovieDetails from "../components/MovieDetails";
+import Loader from "../components/Loader";
 
 function MoviePage() {
   const [movie, setMovie] = useState(null);
@@ -66,7 +67,7 @@ function MoviePage() {
     };
   }, [handleLike, handleBack]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
   if (!movie) return <p>Movie not found</p>;
 

@@ -7,7 +7,8 @@ import {
   ADD_FAVORITE,
   FILL_FAVORITES,
   ADD_FAVORITE_TO_STORE,
-  ADD_FAVORITE_FAILURE
+  ADD_FAVORITE_FAILURE,
+  SET_LOADER
 } from "./actionTypes";
 
 export const fetchDataRequest = (filter, pageNum) => {
@@ -59,3 +60,9 @@ export const fillFavorites = (arrayOfFavoriteMovieIds) => {
     payload: arrayOfFavoriteMovieIds
   };
 };
+
+export const setLoader = () => {
+  return {
+    type: SET_LOADER
+  };
+}
