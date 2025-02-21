@@ -18,16 +18,16 @@ function Popular() {
 
   const page = parseInt(pageNum, 10);
 
-  // useEffect(() => {
-  //   // Validate the page number, api for popular gives max 500 pages
-  //   const validPage = !isNaN(page) && page > 0 && page < 501;
-  //   if (!validPage) {
-  //     navigate("/not-found");
-  //     return;
-  //   }
-  //   // Fetch data
-  //   dispatch(fetchDataRequest("popular", page));
-  // }, [page, dispatch]);
+  useEffect(() => {
+    // Validate the page number, api for popular gives max 500 pages
+    const validPage = !isNaN(page) && page > 0 && page < 501;
+    if (!validPage) {
+      navigate("/not-found");
+      return;
+    }
+    // Fetch data
+    dispatch(fetchDataRequest("popular", page));
+  }, [page, dispatch]);
 
   // Handle keyboard navigation
   useEffect(() => {
